@@ -48,6 +48,7 @@ void init()
 	lcd_command( 0x80 );
 }
 
+
 void lcd_writeChar( unsigned char dat )
 {
 	PORTC = dat & 0xF0; // hoge nibble

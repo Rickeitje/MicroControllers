@@ -11,21 +11,37 @@
 #include <avr/io.h>
 #include <util/delay.h>
 #include <avr/interrupt.h>
+#include <stdlib.h>
 #include "lcd.h"
 
 static char zin[] = "Hallo Diedrich";
+int count = 0;
+char buffer;
+
+ISR(TIMER2_OVF_vect){
+	count++;
+	buffer = count;
+	clearDisplay();
+	lcd_writeChar(buffer+'0');
+	TCNT2 = -1;
+}
+
 
 int main(void)
 {
-    /* Replace with your application code */
 		DDRD = 0xFF;
 		DDRC = 0xFF;
 		PORTC = 0x00;
-   
+		
+		TCNT2 = -1;
+		TIMSK |= (1 << 6);
+		SREG |= (1 << 7);
+		TCCR2 = 0b0000111;  
+		sei();
    
 		init();
 		clearDisplay();
-		display_text(zin);
+		//display_text(zin);
 		while(1){
 			_delay_ms(200);
 		}
