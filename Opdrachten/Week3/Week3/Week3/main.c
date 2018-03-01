@@ -13,15 +13,21 @@
 #include <avr/interrupt.h>
 #include "lcd.h"
 
+static char zin[] = "Hallo Diedrich";
 
 int main(void)
 {
     /* Replace with your application code */
+		DDRD = 0xFF;
+		DDRC = 0xFF;
+		PORTC = 0x00;
+   
    
 		init();
-		display_text();
+		clearDisplay();
+		display_text(zin);
 		while(1){
-
+			_delay_ms(200);
 		}
     
 }

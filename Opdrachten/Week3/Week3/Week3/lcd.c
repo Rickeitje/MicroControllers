@@ -10,6 +10,7 @@
 #include <avr/io.h>
 #include <util/delay.h>
 #include <avr/interrupt.h>
+#include <string.h>
 
 void lcd_command ( unsigned char dat )
 {
@@ -26,7 +27,14 @@ void lcd_command ( unsigned char dat )
 	// (EN=0 RS=0)
 }
 
-void init(void)
+void clearDisplay(){
+	_delay_ms(1);
+	lcd_command(0x01);
+}
+
+
+
+void init()
 {
 	// return home
 	lcd_command( 0x02 );
@@ -55,15 +63,11 @@ void lcd_writeChar( unsigned char dat )
 	// (EN=0 RS=0)
 }
 
-void display_text()
+void display_text(char* string)
 {
-	//char zin[15] = "Aaron is lelijk";
-	//
-	//for(int i = 0; i < 15; i++)
-	//{
-		//lcd_writeChar(zin[i]);
-		//_delay_ms(100);
-	//}
-	
-	lcd_writeChar('a');
+	_delay_ms(1);
+	int length = strlen(string);
+	for(int x = 0; x < length; x++){
+		lcd_writeChar(string[x]);
+	}
 }
