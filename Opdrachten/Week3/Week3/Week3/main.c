@@ -1,9 +1,9 @@
 /*
- * Week3.c
- *
- * Created: 2/22/2018 4:32:30 PM
- * Author : Ricky
- */ 
+* Week3.c
+*
+* Created: 2/22/2018 4:32:30 PM
+* Author : Ricky
+*/
 
 
 
@@ -16,35 +16,50 @@
 
 static char zin[] = "Hallo Diedrich";
 int count = 0;
-char buffer;
+char buffer[20];
 
 ISR(TIMER2_OVF_vect){
-	count++;
-	buffer = count;
+	for(int i = 0; i < 9002; i++){
+		count++;
 	clearDisplay();
-	lcd_writeChar(buffer+'0');
+	display_text(' ');
+	display_text(itoa(count, buffer, 10));
+	//if(count > 99){
+		//lcd_writeChar(count/100+'0');
+		//lcd_writeChar(count%100+'0');
+		//}else if(count > 9){
+			//lcd_writeChar(count/10+'0');
+			//lcd_writeChar(count%10+'0');
+		//}else{
+			//lcd_writeChar(count+'0');
+	//}
 	TCNT2 = -1;
+	_delay_ms(5);
+	}
 }
+
+
 
 
 int main(void)
 {
-		DDRD = 0xFF;
-		DDRC = 0xFF;
-		PORTC = 0x00;
-		
-		TCNT2 = -1;
-		TIMSK |= (1 << 6);
-		SREG |= (1 << 7);
-		TCCR2 = 0b0000111;  
-		sei();
-   
-		init();
-		clearDisplay();
-		//display_text(zin);
-		while(1){
-			_delay_ms(200);
-		}
-    
+	DDRD = 0xFF;
+	DDRC = 0xFF;
+	PORTC = 0x00;
+	
+	TCNT2 = -1;
+	TIMSK |= (1 << 6);
+	SREG |= (1 << 7);
+	TCCR2 = 0b0000111;
+	sei();
+	
+	init();
+	clearDisplay();
+	display_text(zin);
+	
+	while(1){
+		_delay_ms(200);
+	}
+	
 }
 
