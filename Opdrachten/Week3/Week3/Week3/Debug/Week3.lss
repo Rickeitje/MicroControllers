@@ -15,19 +15,19 @@ Idx Name          Size      VMA       LMA       File off  Algn
                   CONTENTS, READONLY
   5 .debug_aranges 00000068  00000000  00000000  000003f4  2**0
                   CONTENTS, READONLY, DEBUGGING
-  6 .debug_info   00000e11  00000000  00000000  0000045c  2**0
+  6 .debug_info   00000df8  00000000  00000000  0000045c  2**0
                   CONTENTS, READONLY, DEBUGGING
-  7 .debug_abbrev 00000a89  00000000  00000000  0000126d  2**0
+  7 .debug_abbrev 00000a7c  00000000  00000000  00001254  2**0
                   CONTENTS, READONLY, DEBUGGING
-  8 .debug_line   00000537  00000000  00000000  00001cf6  2**0
+  8 .debug_line   000004d9  00000000  00000000  00001cd0  2**0
                   CONTENTS, READONLY, DEBUGGING
-  9 .debug_frame  00000104  00000000  00000000  00002230  2**2
+  9 .debug_frame  00000104  00000000  00000000  000021ac  2**2
                   CONTENTS, READONLY, DEBUGGING
- 10 .debug_str    000004b8  00000000  00000000  00002334  2**0
+ 10 .debug_str    000004b2  00000000  00000000  000022b0  2**0
                   CONTENTS, READONLY, DEBUGGING
- 11 .debug_loc    0000045f  00000000  00000000  000027ec  2**0
+ 11 .debug_loc    0000045e  00000000  00000000  00002762  2**0
                   CONTENTS, READONLY, DEBUGGING
- 12 .debug_ranges 00000048  00000000  00000000  00002c4b  2**0
+ 12 .debug_ranges 00000048  00000000  00000000  00002bc0  2**0
                   CONTENTS, READONLY, DEBUGGING
 
 Disassembly of section .text:
@@ -369,8 +369,8 @@ ISR(TIMER2_OVF_vect){
  1ca:	df 93       	push	r29
  1cc:	ef 93       	push	r30
  1ce:	ff 93       	push	r31
- 1d0:	ca e2       	ldi	r28, 0x2A	; 42
- 1d2:	d3 e2       	ldi	r29, 0x23	; 35
+ 1d0:	c4 e6       	ldi	r28, 0x64	; 100
+ 1d2:	d0 e0       	ldi	r29, 0x00	; 0
 			//lcd_writeChar(count/10+'0');
 			//lcd_writeChar(count%10+'0');
 		//}else{
@@ -382,7 +382,7 @@ int count = 0;
 char buffer[20];
 
 ISR(TIMER2_OVF_vect){
-	for(int i = 0; i < 9002; i++){
+	for(int i = 0; i < 100; i++){
 		count++;
  1d6:	80 91 10 01 	lds	r24, 0x0110	; 0x800110 <__data_end>
  1da:	90 91 11 01 	lds	r25, 0x0111	; 0x800111 <__data_end+0x1>
@@ -391,35 +391,35 @@ ISR(TIMER2_OVF_vect){
  1e4:	80 93 10 01 	sts	0x0110, r24	; 0x800110 <__data_end>
 	clearDisplay();
  1e8:	89 df       	rcall	.-238    	; 0xfc <clearDisplay>
-	display_text(' ');
- 1ea:	80 e2       	ldi	r24, 0x20	; 32
- 1ec:	90 e0       	ldi	r25, 0x00	; 0
- 1ee:	b8 df       	rcall	.-144    	; 0x160 <display_text>
     } else if (__radix < 2 || __radix > 36) {
 	*__s = 0;
 	return __s;
     } else {
 	extern char *__itoa_ncheck (int, char *, unsigned char);
 	return __itoa_ncheck (__val, __s, __radix);
- 1f0:	4a e0       	ldi	r20, 0x0A	; 10
- 1f2:	62 e1       	ldi	r22, 0x12	; 18
- 1f4:	71 e0       	ldi	r23, 0x01	; 1
- 1f6:	80 91 10 01 	lds	r24, 0x0110	; 0x800110 <__data_end>
- 1fa:	90 91 11 01 	lds	r25, 0x0111	; 0x800111 <__data_end+0x1>
+ 1ea:	4a e0       	ldi	r20, 0x0A	; 10
+ 1ec:	62 e1       	ldi	r22, 0x12	; 18
+ 1ee:	71 e0       	ldi	r23, 0x01	; 1
+ 1f0:	80 91 10 01 	lds	r24, 0x0110	; 0x800110 <__data_end>
+ 1f4:	90 91 11 01 	lds	r25, 0x0111	; 0x800111 <__data_end+0x1>
+	//display_text(' ');
 	display_text(itoa(count, buffer, 10));
- 1fe:	3d d0       	rcall	.+122    	; 0x27a <__itoa_ncheck>
- 200:	af df       	rcall	.-162    	; 0x160 <display_text>
+ 1f8:	40 d0       	rcall	.+128    	; 0x27a <__itoa_ncheck>
+ 1fa:	b2 df       	rcall	.-156    	; 0x160 <display_text>
 			//lcd_writeChar(count/10+'0');
 			//lcd_writeChar(count%10+'0');
 		//}else{
 			//lcd_writeChar(count+'0');
 	//}
 	TCNT2 = -1;
- 202:	14 bd       	out	0x24, r17	; 36
- 204:	8f e0       	ldi	r24, 0x0F	; 15
- 206:	97 e2       	ldi	r25, 0x27	; 39
- 208:	01 97       	sbiw	r24, 0x01	; 1
- 20a:	f1 f7       	brne	.-4      	; 0x208 <__vector_10+0x64>
+ 1fc:	14 bd       	out	0x24, r17	; 36
+ 1fe:	2f e7       	ldi	r18, 0x7F	; 127
+ 200:	89 ea       	ldi	r24, 0xA9	; 169
+ 202:	93 e0       	ldi	r25, 0x03	; 3
+ 204:	21 50       	subi	r18, 0x01	; 1
+ 206:	80 40       	sbci	r24, 0x00	; 0
+ 208:	90 40       	sbci	r25, 0x00	; 0
+ 20a:	e1 f7       	brne	.-8      	; 0x204 <__vector_10+0x60>
  20c:	00 c0       	rjmp	.+0      	; 0x20e <__vector_10+0x6a>
  20e:	00 00       	nop
  210:	21 97       	sbiw	r28, 0x01	; 1
@@ -428,12 +428,12 @@ int count = 0;
 char buffer[20];
 
 ISR(TIMER2_OVF_vect){
-	for(int i = 0; i < 9002; i++){
+	for(int i = 0; i < 100; i++){
  212:	09 f7       	brne	.-62     	; 0x1d6 <__vector_10+0x32>
 			//lcd_writeChar(count+'0');
 	//}
 	TCNT2 = -1;
-	_delay_ms(5);
+	_delay_ms(150);
 	}
 }
  214:	ff 91       	pop	r31

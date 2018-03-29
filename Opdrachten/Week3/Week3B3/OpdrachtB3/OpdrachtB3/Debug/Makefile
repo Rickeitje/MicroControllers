@@ -37,7 +37,6 @@ SUBDIRS :=
 
 # Add inputs and outputs from these tool invocations to the build variables 
 C_SRCS +=  \
-../lcd.c \
 ../main.c
 
 
@@ -48,24 +47,20 @@ ASM_SRCS +=
 
 
 OBJS +=  \
-lcd.o \
 main.o
 
 OBJS_AS_ARGS +=  \
-lcd.o \
 main.o
 
 C_DEPS +=  \
-lcd.d \
 main.d
 
 C_DEPS_AS_ARGS +=  \
-lcd.d \
 main.d
 
-OUTPUT_FILE_PATH +=Week3.elf
+OUTPUT_FILE_PATH +=OpdrachtB3.elf
 
-OUTPUT_FILE_PATH_AS_ARGS +=Week3.elf
+OUTPUT_FILE_PATH_AS_ARGS +=OpdrachtB3.elf
 
 ADDITIONAL_DEPENDENCIES:=
 
@@ -77,8 +72,6 @@ LINKER_SCRIPT_DEP+=
 
 
 # AVR32/GNU C Compiler
-
-
 
 
 
@@ -114,13 +107,13 @@ all: $(OUTPUT_FILE_PATH) $(ADDITIONAL_DEPENDENCIES)
 $(OUTPUT_FILE_PATH): $(OBJS) $(USER_OBJS) $(OUTPUT_FILE_DEP) $(LIB_DEP) $(LINKER_SCRIPT_DEP)
 	@echo Building target: $@
 	@echo Invoking: AVR/GNU Linker : 5.4.0
-	$(QUOTE)D:\7.0\toolchain\avr8\avr8-gnu-toolchain\bin\avr-gcc.exe$(QUOTE) -o$(OUTPUT_FILE_PATH_AS_ARGS) $(OBJS_AS_ARGS) $(USER_OBJS) $(LIBS) -Wl,-Map="Week3.map" -Wl,--start-group -Wl,-lm  -Wl,--end-group -Wl,--gc-sections -mrelax -mmcu=atmega128 -B "D:\7.0\Packs\atmel\ATmega_DFP\1.2.150\gcc\dev\atmega128"  
+	$(QUOTE)D:\7.0\toolchain\avr8\avr8-gnu-toolchain\bin\avr-gcc.exe$(QUOTE) -o$(OUTPUT_FILE_PATH_AS_ARGS) $(OBJS_AS_ARGS) $(USER_OBJS) $(LIBS) -Wl,-Map="OpdrachtB3.map" -Wl,--start-group -Wl,-lm  -Wl,--end-group -Wl,--gc-sections -mrelax -mmcu=atmega128 -B "D:\7.0\Packs\atmel\ATmega_DFP\1.2.150\gcc\dev\atmega128"  
 	@echo Finished building target: $@
-	"D:\7.0\toolchain\avr8\avr8-gnu-toolchain\bin\avr-objcopy.exe" -O ihex -R .eeprom -R .fuse -R .lock -R .signature -R .user_signatures  "Week3.elf" "Week3.hex"
-	"D:\7.0\toolchain\avr8\avr8-gnu-toolchain\bin\avr-objcopy.exe" -j .eeprom  --set-section-flags=.eeprom=alloc,load --change-section-lma .eeprom=0  --no-change-warnings -O ihex "Week3.elf" "Week3.eep" || exit 0
-	"D:\7.0\toolchain\avr8\avr8-gnu-toolchain\bin\avr-objdump.exe" -h -S "Week3.elf" > "Week3.lss"
-	"D:\7.0\toolchain\avr8\avr8-gnu-toolchain\bin\avr-objcopy.exe" -O srec -R .eeprom -R .fuse -R .lock -R .signature -R .user_signatures "Week3.elf" "Week3.srec"
-	"D:\7.0\toolchain\avr8\avr8-gnu-toolchain\bin\avr-size.exe" "Week3.elf"
+	"D:\7.0\toolchain\avr8\avr8-gnu-toolchain\bin\avr-objcopy.exe" -O ihex -R .eeprom -R .fuse -R .lock -R .signature -R .user_signatures  "OpdrachtB3.elf" "OpdrachtB3.hex"
+	"D:\7.0\toolchain\avr8\avr8-gnu-toolchain\bin\avr-objcopy.exe" -j .eeprom  --set-section-flags=.eeprom=alloc,load --change-section-lma .eeprom=0  --no-change-warnings -O ihex "OpdrachtB3.elf" "OpdrachtB3.eep" || exit 0
+	"D:\7.0\toolchain\avr8\avr8-gnu-toolchain\bin\avr-objdump.exe" -h -S "OpdrachtB3.elf" > "OpdrachtB3.lss"
+	"D:\7.0\toolchain\avr8\avr8-gnu-toolchain\bin\avr-objcopy.exe" -O srec -R .eeprom -R .fuse -R .lock -R .signature -R .user_signatures "OpdrachtB3.elf" "OpdrachtB3.srec"
+	"D:\7.0\toolchain\avr8\avr8-gnu-toolchain\bin\avr-size.exe" "OpdrachtB3.elf"
 	
 	
 
@@ -132,5 +125,5 @@ $(OUTPUT_FILE_PATH): $(OBJS) $(USER_OBJS) $(OUTPUT_FILE_DEP) $(LIB_DEP) $(LINKER
 clean:
 	-$(RM) $(OBJS_AS_ARGS) $(EXECUTABLES)  
 	-$(RM) $(C_DEPS_AS_ARGS)   
-	rm -rf "Week3.elf" "Week3.a" "Week3.hex" "Week3.lss" "Week3.eep" "Week3.map" "Week3.srec" "Week3.usersignatures"
+	rm -rf "OpdrachtB3.elf" "OpdrachtB3.a" "OpdrachtB3.hex" "OpdrachtB3.lss" "OpdrachtB3.eep" "OpdrachtB3.map" "OpdrachtB3.srec" "OpdrachtB3.usersignatures"
 	

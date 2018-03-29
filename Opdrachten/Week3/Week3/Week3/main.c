@@ -19,10 +19,10 @@ int count = 0;
 char buffer[20];
 
 ISR(TIMER2_OVF_vect){
-	for(int i = 0; i < 9002; i++){
+	for(int i = 0; i < 100; i++){
 		count++;
 	clearDisplay();
-	display_text(' ');
+	//display_text(' ');
 	display_text(itoa(count, buffer, 10));
 	//if(count > 99){
 		//lcd_writeChar(count/100+'0');
@@ -34,7 +34,7 @@ ISR(TIMER2_OVF_vect){
 			//lcd_writeChar(count+'0');
 	//}
 	TCNT2 = -1;
-	_delay_ms(5);
+	_delay_ms(150);
 	}
 }
 
