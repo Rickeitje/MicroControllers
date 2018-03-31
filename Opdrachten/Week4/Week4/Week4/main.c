@@ -7,19 +7,19 @@
 #include <string.h>
 
 #include "lcd.h"
-//
-//typedef unsigned long int u_int32;
-//typedef unsigned int u_int16;
-//
-//u_int16 measured = 0;
 
-//ISR(ADC_vect)
-//{
-	//u_int32 result = ADC;
-	//result *= 5000;
-	//result /= 1023;
-	//measured = result;
-//}
+typedef unsigned long int u_int32;
+typedef unsigned int u_int16;
+
+u_int16 measured = 0;
+
+ISR(ADC_vect)
+{
+	u_int32 result = ADC;
+	result *= 5000;
+	result /= 1023;
+	measured = result;
+}
 
 void adcInit( void )
 {
@@ -44,9 +44,9 @@ int main(void)
 	
 	display_text("Werkt dit ding");
 	
-	//adcInit();
+	adcInit();
 	
-	//sei();
+	sei();
 	
 	while (1)
 	{		
@@ -57,24 +57,24 @@ int main(void)
 		PORTA = ADCH;
 		wait(1000);		
 		
-		//u_int32 lamps = measured / 625 ;
-		//
-		//if(lamps<=1)
-		//PORTA = PORTB = 0b10000000;
-		//else if(lamps <= 2)
-		//PORTA = PORTB = 0b11000000;
-		//else if(lamps <= 3)
-		//PORTA = PORTB = 0b11100000;
-		//else if(lamps <= 4)
-		//PORTA = PORTB = 0b11110000;
-		//else if(lamps <= 5)
-		//PORTA = PORTB = 0b111111000;
-		//else if(lamps <= 6)
-		//PORTA = PORTB = 0b111111100;
-		//else if(lamps <= 7)
-		//PORTA = PORTB = 0b111111110;
-		//else
-		//PORTA = PORTB = 0b111111111;		
+		u_int32 lamps = measured / 625 ;
+		
+		if(lamps<=1)
+		PORTA = PORTB = 0b10000000;
+		else if(lamps <= 2)
+		PORTA = PORTB = 0b11000000;
+		else if(lamps <= 3)
+		PORTA = PORTB = 0b11100000;
+		else if(lamps <= 4)
+		PORTA = PORTB = 0b11110000;
+		else if(lamps <= 5)
+		PORTA = PORTB = 0b111111000;
+		else if(lamps <= 6)
+		PORTA = PORTB = 0b111111100;
+		else if(lamps <= 7)
+		PORTA = PORTB = 0b111111110;
+		else
+		PORTA = PORTB = 0b111111111;		
 	}	
 	
 }
