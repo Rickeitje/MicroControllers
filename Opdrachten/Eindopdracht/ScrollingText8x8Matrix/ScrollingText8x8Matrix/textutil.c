@@ -12,7 +12,7 @@
 
 void stringToTextArray(){
 
-	int *text = malloc(1000 * sizeof(int));
+	int *text = malloc(100 * sizeof(int));
 	char data[] = "The quick brown fox jumped over the lazy dog";
 	int length = strlen(data);
 	
@@ -191,6 +191,8 @@ void stringToTextArray(){
 			x = 0;
 		}
 	}
+	
+	free(text);
 	
 }
 	
